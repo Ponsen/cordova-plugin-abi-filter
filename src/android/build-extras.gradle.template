@@ -1,0 +1,7 @@
+android {
+    defaultConfig  {
+        ndk {
+            abiFilters {{ABI_FILTER}}
+        }
+    }
+}

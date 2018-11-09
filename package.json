@@ -1,0 +1,29 @@
+{
+  "name": "cordova-plugin-abi-filter",
+  "version": "1.0.0",
+  "description": "Specify supported platform ABIs for your android build",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ponsen/cordova-plugin-abi-filter.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "build",
+    "abi",
+    "armeabi",
+    "armeabi-v7a",
+    "arm64-v8a",
+    "x86",
+    "x86_64"
+  ],
+  "author": "Paul Stresow",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/Ponsen/cordova-plugin-abi-filter/issues"
+  },
+  "homepage": "https://github.com/Ponsen/cordova-plugin-abi-filter#readme"
+}
