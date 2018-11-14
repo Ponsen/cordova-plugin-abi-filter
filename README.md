@@ -5,7 +5,7 @@ This plugin adds a gradle file to your android project. Depending on your config
 ## Install
 
 ````bash
-cordova plugin add cordova-plugin-abi-filter
+cordova plugin add cordova-plugin-abi-filter #  --variable ABI_FILTER=""armeabi-v7a","armeabi-v8a","x86","x86_64""
 ````
 
 or

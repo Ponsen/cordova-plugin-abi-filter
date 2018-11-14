@@ -25,5 +25,7 @@
   "bugs": {
     "url": "https://github.com/Ponsen/cordova-plugin-abi-filter/issues"
   },
-  "homepage": "https://github.com/Ponsen/cordova-plugin-abi-filter#readme"
+  "homepage": "https://github.com/Ponsen/cordova-plugin-abi-filter#readme",
+  "dependencies": {
+  }
 }
