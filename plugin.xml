@@ -11,7 +11,7 @@
   </engines>
 
   <!-- Default - contains all platform abis -->
-  <preference name="ABI_FILTER" default="armeabi-v7a|armeabi-v8a|x86|x86_64" />
+  <preference name="ABI_FILTER" default="armeabi-v7a,armeabi-v8a,x86,x86_64" />
 
   <platform name="android">
     <hook type="after_plugin_add" src="scripts/apply.js" />

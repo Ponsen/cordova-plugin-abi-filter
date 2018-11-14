@@ -21,9 +21,6 @@ module.exports = function (context) {
 
     const gradleFilePath = path.join(projectRoot, 'platforms/android/' + context.opts.plugin.id)
 
-
-    const ABI_PREF_KEY = "ABI_FILTER"
-
     //helper funcs
     function searchFilesByFilterRecursive(startPath, filter, callback) {
 
@@ -47,7 +44,7 @@ module.exports = function (context) {
     searchFilesByFilterRecursive(gradleFilePath, /\-build-extras.gradle$/, (filepath) => {
 
         //default values
-        var abi_values = "armeabi-v7a|armeabi-v8a|x86|x86_64"
+        var abi_values = "armeabi-v7a,armeabi-v8a,x86,x86_64"
 
         //Variables can come from 3 different places
 
@@ -72,7 +69,7 @@ module.exports = function (context) {
 
         //parse them values to a gradle readable string
         var abi_values_parsed = "";
-        let abi_arr = abi_values.split("|");
+        let abi_arr = abi_values.split(",");
         for (var i = 0; i < abi_arr.length; ++i) {
             abi_values_parsed +=  '"' + abi_arr[i] + '"' + (abi_arr.length - 1 === i ? "" : ",")
         }
@@ -100,16 +97,12 @@ module.exports = function (context) {
             //save (override) gradle file from project
             fs.writeFile(filepath, replacement_file, {encoding:'utf8',flag:'w'}, function(err) {
                 if(err) {
-                    console.log("Applied ABI-Filters: " + abi_values)
                     deferral.reject(err)
                 }
             
+                console.log("Applied ABI-Filters: " + abi_values)
                 deferral.resolve()
             }); 
-
-            console.log("Applied ABI-Filters: " + abi_values)
-
-            deferral.resolve()
         })
     })
 
