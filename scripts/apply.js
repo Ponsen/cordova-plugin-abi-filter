@@ -48,23 +48,27 @@ module.exports = function (context) {
 
         //Variables can come from 3 different places
 
-        //plugin.xml
-        //Prio 3 - default if user did not specify cli args or if plugin is just added
-        if (context.opts.plugin.pluginInfo.getPreferences().ABI_FILTER) {
-            abi_values = context.opts.plugin.pluginInfo.getPreferences().ABI_FILTER
-        }
+        try{
+            //plugin.xml
+            //Prio 3 - default if user did not specify cli args or if plugin is just added
+            if (context.opts.plugin.pluginInfo.getPreferences().ABI_FILTER) {
+                abi_values = context.opts.plugin.pluginInfo.getPreferences().ABI_FILTER
+            }
 
-        //CLI Arg
-        //Prio 2 - is present when plugin is added with --variable ABI_FILTER="a|b|c"
-        if (context.opts.cli_variables && context.opts.cli_variables.ABI_FILTER) {
-            abi_values = context.opts.cli_variables.ABI_FILTER
-        }
+            //CLI Arg
+            //Prio 2 - is present when plugin is added with --variable ABI_FILTER="a|b|c"
+            if (context.opts.cli_variables && context.opts.cli_variables.ABI_FILTER) {
+                abi_values = context.opts.cli_variables.ABI_FILTER
+            }
 
-        //config.xml
-        //Prio 1 - plugin was already added or user added key to config.xml manually
-        const configFile = new common.ConfigParser(utils.projectConfig(projectRoot))
-        if (configFile.getPlugin(context.opts.plugin.id).variables.ABI_FILTER) {
-            abi_values = configFile.getPlugin(context.opts.plugin.id).variables.ABI_FILTER
+            //config.xml
+            //Prio 1 - plugin was already added or user added key to config.xml manually
+            const configFile = new common.ConfigParser(utils.projectConfig(projectRoot))
+            if (configFile.getPlugin(context.opts.plugin.id).variables.ABI_FILTER) {
+                abi_values = configFile.getPlugin(context.opts.plugin.id).variables.ABI_FILTER
+            }
+        } catch(error){
+            console.warn("Using defaults: " + abi_values);
         }
 
         //parse them values to a gradle readable string
