@@ -44,7 +44,7 @@ module.exports = function (context) {
     searchFilesByFilterRecursive(gradleFilePath, /\-build-extras.gradle$/, (filepath) => {
 
         //default values
-        var abi_values = "armeabi-v7a,armeabi-v8a,x86,x86_64"
+        var abi_values = "armeabi-v7a,arm64-v8a,x86,x86_64"
 
         //Variables can come from 3 different places
 

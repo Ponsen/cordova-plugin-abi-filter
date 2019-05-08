@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-abi-filter" version="1.0.1">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-abi-filter" version="1.0.2">
   <name>cordova-plugin-abi-filter</name>
   <description>Filter desired platform ABIs from your project build.</description>
   <license>Apache 2.0 License</license>
@@ -11,7 +11,7 @@
   </engines>
 
   <!-- Default - contains all platform abis -->
-  <preference name="ABI_FILTER" default="armeabi-v7a,armeabi-v8a,x86,x86_64" />
+  <preference name="ABI_FILTER" default="armeabi-v7a,arm64-v8a,x86,x86_64" />
 
   <platform name="android">
     <hook type="after_plugin_add" src="scripts/apply.js" />
