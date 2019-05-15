@@ -27,5 +27,6 @@
   },
   "homepage": "https://github.com/Ponsen/cordova-plugin-abi-filter#readme",
   "dependencies": {
+    "global-modules": "^2.0.0"
   }
 }
