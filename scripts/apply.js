@@ -1,15 +1,15 @@
-const globalModules = require('global-modules');
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 const os = require('os');
-const ConfigParser = require(globalModules +'/cordova-common/src/ConfigParser/ConfigParser');
-const utils = require(globalModules + '/cordova-lib/src/cordova/util');
 
 module.exports = context => {
     if (!context.opts.cordova.platforms.includes('android')) {
         return
     }
+    debugger;
+    const { ConfigParser } = context.requireCordovaModule('cordova-common');
+    const utils = context.requireCordovaModule("cordova-lib/src/cordova/util");
 
     return new Promise((resolve, reject) => {
 
@@ -23,28 +23,35 @@ module.exports = context => {
 
             //default values
             var abi_values = "armeabi-v7a,arm64-v8a,x86,x86_64"
+            
+            const configFile = new ConfigParser(utils.projectConfig(projectRoot))
 
             //Variables can come from 3 different places
 
             try{
-                //plugin.xml
-                //Prio 3 - default if user did not specify cli args or if plugin is just added
-                if (context.opts.plugin.pluginInfo.getPreferences().ABI_FILTER) {
-                    abi_values = context.opts.plugin.pluginInfo.getPreferences().ABI_FILTER
+                //config.xml
+                //Prio 1 - plugin was already added or user added key to config.xml manually
+                if (configFile.getPlugin(context.opts.plugin.id) && 
+                    configFile.getPlugin(context.opts.plugin.id).variables && 
+                    configFile.getPlugin(context.opts.plugin.id).variables.ABI_FILTER) {
+                        abi_values = configFile.getPlugin(context.opts.plugin.id).variables.ABI_FILTER
+                        console.log(`Using Values from user defined config preferences: ${abi_values}`);
                 }
 
                 //CLI Arg
                 //Prio 2 - is present when plugin is added with --variable ABI_FILTER="a|b|c"
-                if (context.opts.cli_variables && context.opts.cli_variables.ABI_FILTER) {
-                    abi_values = context.opts.cli_variables.ABI_FILTER
+                else if (process.argv.join("|").indexOf("ABI_FILTER=") > -1) {
+                    abi_values = process.argv.join("|").match(/ABI_FILTER=(.*?)(\||$)/)[1];
+                    console.log(`Using Values from Cli-Variables: ${abi_values}`);
                 }
 
-                //config.xml
-                //Prio 1 - plugin was already added or user added key to config.xml manually
-                const configFile = new ConfigParser(utils.projectConfig(projectRoot))
-                if (configFile.getPlugin(context.opts.plugin.id).variables.ABI_FILTER) {
-                    abi_values = configFile.getPlugin(context.opts.plugin.id).variables.ABI_FILTER
+                //plugin.xml
+                //Prio 3 - default if user did not specify cli args or if plugin is just added
+                else if (context.opts.plugin.pluginInfo.getPreferences().ABI_FILTER) {
+                    abi_values = context.opts.plugin.pluginInfo.getPreferences().ABI_FILTER
+                    console.log(`Using Values from default preferences: ${abi_values}`);
                 }
+
             } catch(error){
                 console.warn("Using defaults: " + abi_values);
             }
