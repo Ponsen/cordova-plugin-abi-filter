@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-abi-filter",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Specify supported platform ABIs for your android build",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
