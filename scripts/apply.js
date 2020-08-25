@@ -18,7 +18,7 @@ module.exports = context => {
 
             if (!fs.existsSync(startPath)) {
                 console.log("no dir ", startPath);
-                deferral.reject(new Error("folder " + startPath + " does not exist"))
+                return reject(new Error("folder " + startPath + " does not exist"))
             }
 
             var files = fs.readdirSync(startPath);
