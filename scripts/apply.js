@@ -7,7 +7,6 @@ module.exports = context => {
     if (!context.opts.cordova.platforms.includes('android')) {
         return
     }
-    debugger;
     const { ConfigParser } = context.requireCordovaModule('cordova-common');
     const utils = context.requireCordovaModule("cordova-lib/src/cordova/util");
 
